@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps  # This flag bypasses the peer dependency conflict
 
-      - name: Lint project
-        run: npm run lint -- --fix  # Automatically fix linting issues if possible
+      - name: Run Prettier check
+        run: npm run lint  # This will check the formatting of the code using Prettier
 
       - name: Run tests
         run: npm test  # Run your tests
