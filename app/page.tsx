@@ -1,5 +1,5 @@
-import { ThemeProvider } from "@/components/theme-provider"
-import InvoiceGenerator from "./components/invoice-generator"
+import { ThemeProvider } from '@/components/theme-provider';
+import InvoiceGenerator from './components/invoice-generator';
 
 export default function Home() {
   return (
@@ -10,5 +10,5 @@ export default function Home() {
         </div>
       </main>
     </ThemeProvider>
-  )
+  );
 }

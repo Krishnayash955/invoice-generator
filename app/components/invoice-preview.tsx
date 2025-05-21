@@ -1,15 +1,22 @@
-"use client"
+'use client';
 
-import { formatDate } from "../utils/format-utils"
-import type { InvoiceData } from "../types/invoice-types"
+import { formatDate } from '../utils/format-utils';
+import type { InvoiceData } from '../types/invoice-types';
 
-export default function InvoicePreview({ formData }: { formData: InvoiceData }) {
+export default function InvoicePreview({
+  formData,
+}: {
+  formData: InvoiceData;
+}) {
   const calculateSubtotal = () => {
-    return formData.lineItems.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
-  }
+    return formData.lineItems.reduce(
+      (sum, item) => sum + item.quantity * item.unitPrice,
+      0,
+    );
+  };
 
-  const subtotal = calculateSubtotal()
-  const total = subtotal
+  const subtotal = calculateSubtotal();
+  const total = subtotal;
 
   return (
     <div className="p-8 bg-gray-900 text-white">
@@ -26,9 +33,11 @@ export default function InvoicePreview({ formData }: { formData: InvoiceData }) 
         {/* Header content */}
         <div className="flex flex-col md:flex-row justify-between items-start pt-28 relative z-10">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-1">{formData.companyName || "Company Name"}</h1>
+            <h1 className="text-2xl font-bold text-white mb-1">
+              {formData.companyName || 'Company Name'}
+            </h1>
             <div className="text-sm text-gray-400 whitespace-pre-line">
-              {formData.companyAddress || "Company Address"}
+              {formData.companyAddress || 'Company Address'}
             </div>
             <div className="text-sm text-gray-400 mt-2">
               {formData.companyEmail && <div>{formData.companyEmail}</div>}
@@ -36,14 +45,24 @@ export default function InvoicePreview({ formData }: { formData: InvoiceData }) 
             </div>
           </div>
           <div className="text-right mt-4 md:mt-0">
-            <div className="text-3xl font-bold text-orange-500 mb-2">INVOICE</div>
+            <div className="text-3xl font-bold text-orange-500 mb-2">
+              INVOICE
+            </div>
             <div className="text-sm">
-              <div className="font-medium text-white">Invoice #: {formData.invoiceNumber || "INV-0001"}</div>
-              <div className="text-gray-400">
-                Date: {formData.invoiceDate ? formatDate(formData.invoiceDate) : formatDate(new Date().toISOString())}
+              <div className="font-medium text-white">
+                Invoice #: {formData.invoiceNumber || 'INV-0001'}
               </div>
               <div className="text-gray-400">
-                Due Date: {formData.dueDate ? formatDate(formData.dueDate) : formatDate(new Date().toISOString())}
+                Date:{' '}
+                {formData.invoiceDate
+                  ? formatDate(formData.invoiceDate)
+                  : formatDate(new Date().toISOString())}
+              </div>
+              <div className="text-gray-400">
+                Due Date:{' '}
+                {formData.dueDate
+                  ? formatDate(formData.dueDate)
+                  : formatDate(new Date().toISOString())}
               </div>
             </div>
           </div>
@@ -53,9 +72,17 @@ export default function InvoicePreview({ formData }: { formData: InvoiceData }) 
       {/* Client Info */}
       <div className="mb-10 p-4 bg-gray-800 rounded-lg border border-gray-700">
         <div className="text-sm font-medium text-gray-400 mb-2">BILL TO:</div>
-        <div className="font-medium text-lg text-white">{formData.clientName || "Client Name"}</div>
-        <div className="text-sm text-gray-400 whitespace-pre-line">{formData.clientAddress || "Client Address"}</div>
-        {formData.clientEmail && <div className="text-sm text-gray-400 mt-1">{formData.clientEmail}</div>}
+        <div className="font-medium text-lg text-white">
+          {formData.clientName || 'Client Name'}
+        </div>
+        <div className="text-sm text-gray-400 whitespace-pre-line">
+          {formData.clientAddress || 'Client Address'}
+        </div>
+        {formData.clientEmail && (
+          <div className="text-sm text-gray-400 mt-1">
+            {formData.clientEmail}
+          </div>
+        )}
       </div>
 
       {/* Line Items */}
@@ -63,20 +90,35 @@ export default function InvoicePreview({ formData }: { formData: InvoiceData }) 
         <table className="w-full text-sm">
           <thead>
             <tr>
-              <th className="py-3 px-4 bg-amber-500 text-left font-semibold text-black rounded-tl-lg">Description</th>
-              <th className="py-3 px-4 bg-amber-500 text-right font-semibold text-black">Qty</th>
-              <th className="py-3 px-4 bg-amber-500 text-right font-semibold text-black">Unit Price</th>
-              <th className="py-3 px-4 bg-amber-500 text-right font-semibold text-black rounded-tr-lg">Amount</th>
+              <th className="py-3 px-4 bg-amber-500 text-left font-semibold text-black rounded-tl-lg">
+                Description
+              </th>
+              <th className="py-3 px-4 bg-amber-500 text-right font-semibold text-black">
+                Qty
+              </th>
+              <th className="py-3 px-4 bg-amber-500 text-right font-semibold text-black">
+                Unit Price
+              </th>
+              <th className="py-3 px-4 bg-amber-500 text-right font-semibold text-black rounded-tr-lg">
+                Amount
+              </th>
             </tr>
           </thead>
           <tbody>
             {formData.lineItems.map((item, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-850"}>
+              <tr
+                key={index}
+                className={index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-850'}
+              >
                 <td className="py-4 px-4 text-left border-b border-gray-700">
-                  {item.description || "Item description"}
+                  {item.description || 'Item description'}
                 </td>
-                <td className="py-4 px-4 text-right border-b border-gray-700">{item.quantity}</td>
-                <td className="py-4 px-4 text-right border-b border-gray-700">${item.unitPrice.toFixed(2)}</td>
+                <td className="py-4 px-4 text-right border-b border-gray-700">
+                  {item.quantity}
+                </td>
+                <td className="py-4 px-4 text-right border-b border-gray-700">
+                  ${item.unitPrice.toFixed(2)}
+                </td>
                 <td className="py-4 px-4 text-right font-medium border-b border-gray-700">
                   ${(item.quantity * item.unitPrice).toFixed(2)}
                 </td>
@@ -116,5 +158,5 @@ export default function InvoicePreview({ formData }: { formData: InvoiceData }) 
         Thank you for your business!
       </div>
     </div>
-  )
+  );
 }

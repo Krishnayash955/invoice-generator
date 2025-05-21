@@ -1,21 +1,21 @@
-"use server"
+'use server';
 
-import mysql from "mysql2/promise"
+import mysql from 'mysql2/promise';
 
 // Configure the local MySQL connection
 const pool = mysql.createPool({
-  host: "localhost", // Replace with your database host
-  user: "root", // Replace with your MySQL username
-  password: "", // Replace with your MySQL password
-  database: "invoice_generator", // Replace with your database name
+  host: 'localhost', // Replace with your database host
+  user: 'root', // Replace with your MySQL username
+  password: '', // Replace with your MySQL password
+  database: 'invoice_generator', // Replace with your database name
   port: 3306, // Replace with your MySQL port if different
-})
+});
 
 export async function initializeDatabase() {
-  const connection = await pool.getConnection()
+  const connection = await pool.getConnection();
   try {
     // Check if tables already exist
-    const tablesExist = await checkTablesExist(connection)
+    const tablesExist = await checkTablesExist(connection);
 
     if (!tablesExist) {
       // Create invoices table
@@ -46,7 +46,7 @@ export async function initializeDatabase() {
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )
-      `)
+      `);
 
       // Create line_items table
       await connection.query(`
@@ -65,22 +65,22 @@ export async function initializeDatabase() {
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )
-      `)
+      `);
 
       // Create index for faster lookups
       await connection.query(`
         CREATE INDEX IF NOT EXISTS idx_line_items_invoice_id ON line_items(invoice_id)
-      `)
+      `);
 
-      return { success: true, message: "Database tables created successfully" }
+      return { success: true, message: 'Database tables created successfully' };
     }
 
-    return { success: true, message: "Database tables already exist" }
+    return { success: true, message: 'Database tables already exist' };
   } catch (error) {
-    console.error("Error initializing database:", error)
-    return { success: false, message: "Failed to initialize database", error }
+    console.error('Error initializing database:', error);
+    return { success: false, message: 'Failed to initialize database', error };
   } finally {
-    connection.release()
+    connection.release();
   }
 }
 
@@ -92,10 +92,10 @@ async function checkTablesExist(connection: any) {
       FROM information_schema.tables
       WHERE table_schema = DATABASE()
       AND table_name = 'invoices'
-    `)
-    return rows[0].count > 0
+    `);
+    return rows[0].count > 0;
   } catch (error) {
-    console.error("Error checking if tables exist:", error)
-    return false
+    console.error('Error checking if tables exist:', error);
+    return false;
   }
 }
