@@ -13,14 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the code from the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '19' # Specify the Node.js version you’re using (adjust as needed)
 
+      # Step 3: Cache node modules to speed up subsequent builds
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -29,20 +32,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-modules-
 
+      # Step 4: Install dependencies from package.json
       - name: Install dependencies
         run: npm install --legacy-peer-deps # This flag bypasses the peer dependency conflict
 
+      # Step 5: Install Cypress (in case it's needed)
+      - name: Install Cypress
+        run: npm install --save-dev cypress
+
+      # Step 6: Run Prettier check to validate code formatting
       - name: Run Prettier check
-        run: npm run lint # This will check the formatting of the code using Prettier
+        run: npm run lint # Assumes that `npm run lint` uses Prettier for code formatting
 
+      # Step 7: Run tests using Cypress or any other testing framework you've set up
       - name: Run tests
-        run: npm test # Run your tests
+        run: npx cypress run # Running Cypress tests using npx (without needing global installation)
 
+      # Step 8: Build the project (if necessary, based on your app setup)
       - name: Build project
         run: npm run build
 
-      # Optional: Add deployment steps here if needed
-      # For example, deploy to GitHub Pages or a similar service:
+      # Optional: Deployment step (if you need it)
       # - name: Deploy to GitHub Pages
       #   run: |
       #     npm install gh-pages --save-dev
