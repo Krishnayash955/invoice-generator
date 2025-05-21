@@ -35,8 +35,8 @@ jobs:
       - name: Run Prettier check
         run: npm run lint # This will check the formatting of the code using Prettier
 
-      -  name: Run Jest tests
-         run: npm test -- --passWithNoTests
+      - name: Run Jest tests
+        run: npm test -- --passWithNoTests
 
       - name: Build project
         run: npm run build
