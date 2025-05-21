@@ -33,7 +33,7 @@ jobs:
         run: npm install --legacy-peer-deps # This flag bypasses the peer dependency conflict
 
       - name: Run Prettier check
-        run: npm run lint
+        run: npm run lint # This will check the formatting of the code using Prettier
 
       - name: Run Jest tests
         run: npm test # Run Jest tests
