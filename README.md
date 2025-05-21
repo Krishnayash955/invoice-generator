@@ -36,4 +36,3 @@ Continue building your app on:
 3. Then Enter "npm install mysql2 --legacy-peer-deps"
 4. Then finally Enter "npm run dev" 
 # invoice-generator
-# invoice-generator
