@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "cypress run",
+    "test": "jest",
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },
@@ -66,13 +66,16 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cypress": "^14.4.0",
+    "jest": "^29.7.0",
     "postcss": "^8",
     "prettier": "^3.5.3",
     "tailwindcss": "^3.4.17",
+    "ts-jest": "^29.3.4",
     "typescript": "^5"
   }
 }

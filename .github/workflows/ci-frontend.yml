@@ -3,7 +3,7 @@ name: Frontend CI
 on:
   push:
     branches:
-      - main
+      - main  # Adjust to your default branch
   pull_request:
     branches:
       - main
@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: '19'  # Specify the Node.js version you’re using (adjust as needed)
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -30,19 +30,22 @@ jobs:
             ${{ runner.os }}-node-modules-
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps  # This flag bypasses the peer dependency conflict
 
-      # Step to run Prettier checks
       - name: Run Prettier check
-        run: npm run lint
+        run: npm run lint  # This will check the formatting of the code using Prettier
 
-      # Install Cypress and run tests
-      - name: Install Cypress
-        run: npm install --save-dev cypress
+      - name: Run Jest tests
+        run: npm test  # Run Jest tests
 
-      - name: Run Cypress tests
-        run: npx cypress run
-
-      # Build project
       - name: Build project
         run: npm run build
+
+      # Optional: Add deployment steps here if needed
+      # For example, deploy to GitHub Pages or a similar service:
+      # - name: Deploy to GitHub Pages
+      #   run: |
+      #     npm install gh-pages --save-dev
+      #     npm run deploy
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Ensure this token is stored in GitHub secrets

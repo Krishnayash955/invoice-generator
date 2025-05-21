@@ -20,8 +20,7 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    },
-    "baseUrl": "./"  // Set this to the root folder where your TypeScript files are located
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
