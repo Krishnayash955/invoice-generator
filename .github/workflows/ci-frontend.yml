@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main  # Adjust to your default branch
-      - master
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   build-and-test:
@@ -32,17 +30,18 @@ jobs:
             ${{ runner.os }}-node-modules-
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps  # This flag bypasses the peer dependency conflict
 
       - name: Lint project
         run: npm run lint
 
       - name: Run tests
-        run: npm test  # If you have a test command, ensure it works with your test setup.
+        run: npm test  # If you have tests set up in your project
 
       - name: Build project
         run: npm run build
 
-      - name: Deploy (Optional)
-        run: |
-          echo "Deploy step here"  # You can add your deployment step here if necessary.
+      # Optional: Add deployment steps here if needed
+      # - name: Deploy
+      #   run: |
+      #     echo "Deploy your app here"
