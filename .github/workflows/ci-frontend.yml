@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Specify the Node.js version you're using (adjust as needed)
+          node-version: '18'  # Specify the Node.js version you’re using (adjust as needed)
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -41,7 +41,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # Optional: Add deployment steps here if needed
-      # - name: Deploy
-      #   run: |
-      #     echo "Deploy your app here"
+      # Deployment to GitHub Pages
+      - name: Deploy to GitHub Pages
+        run: |
+          npm install gh-pages --save-dev
+          npm run deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Ensure you set this secret in GitHub
+
