@@ -36,7 +36,7 @@ jobs:
         run: npm run lint -- --fix  # Automatically fix linting issues if possible
 
       - name: Run tests
-        run: npm test  # If you have tests set up in your project
+        run: npm test  # Run your tests
 
       - name: Build project
         run: npm run build
@@ -49,4 +49,3 @@ jobs:
       #     npm run deploy
       #   env:
       #     GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Ensure this token is stored in GitHub secrets
-
